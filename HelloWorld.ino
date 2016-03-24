@@ -9,8 +9,12 @@ LiquidCrystal_I2C lcd(0x27, 20, 4);
 AM2320 temperatureSensor;
 
 int MHZ19_PWM_INPUT_PIN = 2;
+int MHZ19_RX_PIN = 3; // our serial TX
+int MHZ19_TX_PIN = 4; // our serial RX
 
 MHZ19 mhz19 = MHZ19(MHZ19_PWM_INPUT_PIN);
+
+MHZ19 mhz19serial = MHZ19(MHZ19_RX_PIN, MHZ19_TX_PIN);
 
 float i = 0;
 
@@ -32,10 +36,14 @@ void loop() {
 	i += 0.01F;
 	float temperature = temperatureSensor.getTemperature();
 	float humidity = temperatureSensor.getHumidity();
-	float ppm = mhz19.readPpm();
+	float ppmPwm = mhz19.readPpmPwm();
+	float ppmSerial = mhz19serial.readPpmSerial();
 
 	lcd.clear();
 	lcd.print(i);
+
+	lcd.print(" ");
+	lcd.print(ppmSerial);
 
 	lcd.setCursor(0, 1);
 	lcd.print("T = ");
@@ -49,6 +57,6 @@ void loop() {
 
 	lcd.setCursor(0, 3);
 	lcd.print("CO2 = ");
-	lcd.print(ppm);
+	lcd.print(ppmPwm);
 	lcd.print(" ppm");
 }
