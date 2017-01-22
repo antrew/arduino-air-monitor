@@ -1,3 +1,10 @@
 /Release/
 /lib/
 /spec.d
+/build-uno/
+
+# KDevelop
+*.kdev4
+
+# VIM
+*.swp
