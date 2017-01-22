@@ -43,7 +43,7 @@ float MHZ19::readPpm() {
 		lowCounter++;
 	}
 
-	float ppm = 2000.0 * (1002.0 * highCounter - 2.0 * lowCounter) / 1000.0
+	float ppm = 5000.0 * (1002.0 * highCounter - 2.0 * lowCounter) / 1000.0
 			/ (highCounter + lowCounter);
 
 	Serial.print("high = ");
