@@ -1,7 +1,7 @@
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 #include <AM2320.h>
-#include "MHZ19.h"
+#include <MHZ19.h>
 
 // Set the LCD address to 0x27 for a 16 chars and 2 line display
 LiquidCrystal_I2C lcd(0x27, 16, 2);
@@ -27,8 +27,9 @@ void setup() {
 void loop() {
 	delay(1000);
 
-	float temperature = temperatureSensor.getTemperature();
-	float humidity = temperatureSensor.getHumidity();
+	temperatureSensor.Read();
+	float temperature = temperatureSensor.t;
+	float humidity = temperatureSensor.h;
 	float ppm = mhz19.readPpm();
 
 	Serial.print("T = ");
